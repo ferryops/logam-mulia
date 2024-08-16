@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./GoldPriceTable.css";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "@/components/indicators/Loading";
+import Error from "@/components/indicators/Error";
 
 function GoldPriceTable() {
   const [priceGold, setPriceGold] = useState([]);
@@ -66,8 +68,8 @@ function GoldPriceTable() {
     setCurrentPage(1);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
     <div>

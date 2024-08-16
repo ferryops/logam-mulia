@@ -8,19 +8,21 @@ https://api-public-two.vercel.app/
 
 ## Technologies Used
 
-Next.js: React framework for production.
-Cheerio: Library for parsing and manipulating HTML, used for web scraping.
+- Next.js: React framework for production.
+- Cheerio: Library for parsing and manipulating HTML, used for web scraping.
 
 ## Available Endpoints
 
 1. **Gold Price**
 
 Endpoint: /api/price-gold-antam-sell
+
 Description: Returns the current Antam gold price data.
 
-1. **Gold Price (BUYBACK)**
+2. **Gold Price (BUYBACK)**
 
 Endpoint: /api/price-gold-antam-buy
+
 Description: Returns the current Antam gold price buyback data.
 
 ## Getting Started
