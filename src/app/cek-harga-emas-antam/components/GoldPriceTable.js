@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./GoldPriceTable.css";
+import Image from "next/image";
+import Link from "next/link";
 
 function GoldPriceTable() {
   const [priceGold, setPriceGold] = useState([]);
@@ -142,14 +144,16 @@ function GoldPriceTable() {
       </div>
 
       <div className="github-link">
-        <a href="https://github.com/ferryops/cek-harga-emas-antam" target="_blank" rel="noopener noreferrer">
-          <img
+        <Link href="https://github.com/ferryops/api-public" target="_blank" rel="noopener noreferrer">
+          <Image
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/GitHub_Mark.png/923px-GitHub_Mark.png"
             alt="GitHub Logo"
             className="github-logo"
+            width={24}
+            height={24}
           />
           Lihat kode sumber di GitHub
-        </a>
+        </Link>
       </div>
     </div>
   );
