@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  basePath: "/api-public",
-};
+const nextConfig = {};
 
 export default nextConfig;
