@@ -1,4 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# API Public
+
+API Public adalah sebuah layanan API yang menyediakan berbagai endpoint untuk mengakses data publik. Proyek ini dibangun menggunakan Next.js dan Cheerio untuk web scraping.
+
+## URL API
+
+https://api-public-two.vercel.app/
+
+## Teknologi yang Digunakan
+
+- [Next.js](https://nextjs.org/): Framework React untuk produksi.
+- [Cheerio](https://cheerio.js.org/): Library untuk parsing dan manipulasi HTML, digunakan untuk web scraping.
+
+## Endpoint yang Tersedia
+
+1. **Harga Emas**
+   - Endpoint: `/api/price-gold-antam-sell`
+   - Deskripsi: Mengembalikan data harga emas antam terkini.
 
 ## Getting Started
 
