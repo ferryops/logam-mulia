@@ -1,21 +1,27 @@
 # API Public
 
-API Public adalah sebuah layanan API yang menyediakan berbagai endpoint untuk mengakses data publik. Proyek ini dibangun menggunakan Next.js dan Cheerio untuk web scraping.
+Public API is an API service that provides various endpoints to access public data. This project is built using Next.js and Cheerio for web scraping.
 
-## URL API
+# API URL
 
 https://api-public-two.vercel.app/
 
-## Teknologi yang Digunakan
+## Technologies Used
 
-- [Next.js](https://nextjs.org/): Framework React untuk produksi.
-- [Cheerio](https://cheerio.js.org/): Library untuk parsing dan manipulasi HTML, digunakan untuk web scraping.
+Next.js: React framework for production.
+Cheerio: Library for parsing and manipulating HTML, used for web scraping.
 
-## Endpoint yang Tersedia
+## Available Endpoints
 
-1. **Harga Emas**
-   - Endpoint: `/api/price-gold-antam-sell`
-   - Deskripsi: Mengembalikan data harga emas antam terkini.
+1. **Gold Price**
+
+Endpoint: /api/price-gold-antam-sell
+Description: Returns the current Antam gold price data.
+
+1. **Gold Price (BUYBACK)**
+
+Endpoint: /api/price-gold-antam-buy
+Description: Returns the current Antam gold price buyback data.
 
 ## Getting Started
 
