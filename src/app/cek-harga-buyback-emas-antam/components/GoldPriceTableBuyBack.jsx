@@ -1,12 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import "./GoldPriceTable.css";
-import Image from "next/image";
 import Link from "next/link";
 import Loading from "@/components/indicators/Loading";
 import Error from "@/components/indicators/Error";
+import Pagination from "@/components/UI/Pagination";
 
-function GoldPriceTable() {
+function GoldPriceTableBuyBack() {
   const [priceGold, setPriceGold] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +19,7 @@ function GoldPriceTable() {
 
   const fetchPriceGold = async () => {
     try {
-      const response = await fetch("/api/price-gold-antam-sell");
+      const response = await fetch("/api/price-gold-antam-buy");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -72,11 +71,11 @@ function GoldPriceTable() {
   if (error) return <Error message={error} />;
 
   return (
-    <div>
-      <div className="table-controls">
-        <label htmlFor="itemsPerPage">Items per page:</label>
+    <div className="w-full flex flex-col gap-5 py-5">
+      <div className="w-full md:w-1/2 m-auto flex justify-end">
+        <label>Items per page:</label>
         <select
-          id="itemsPerPage"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
           value={itemsPerPage}
           onChange={(e) => {
             setItemsPerPage(Number(e.target.value));
@@ -91,74 +90,48 @@ function GoldPriceTable() {
         </select>
       </div>
 
-      <table>
-        <thead>
+      <table className="w-full md:w-1/2 m-auto text-xs md:text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th>Nama</th>
-            <th>Tanggal</th>
-            <th>Harga</th>
-            <th>Persentase</th>
+            <th scope="col" className="px-6 py-3">
+              Tanggal
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Harga
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Persentase
+            </th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((item, index) => (
-            <tr key={item[0]}>
-              <td>Emas Antam</td>
-              <td>{formatDate(item[0])}</td>
-              <td>Rp {formatPrice(item[1])}</td>
-              <td>{calculatePercentage(item[1], index > 0 ? paginatedData[index - 1][1] : null)}</td>
+            <tr key={item[0]} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td className="px-6 py-4">{formatDate(item[0])}</td>
+              <td className="px-6 py-4">Rp {formatPrice(item[1])}</td>
+              <td className="px-6 py-4">{calculatePercentage(item[1], index > 0 ? paginatedData[index - 1][1] : null)}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div className="pagination">
-        <button onClick={prevPage} disabled={currentPage === 1}>
-          Sebelumnya
-        </button>
-        <span>
-          Halaman {currentPage} dari {totalPages}
-        </span>
-        <button onClick={nextPage} disabled={currentPage === totalPages}>
-          Selanjutnya
-        </button>
-      </div>
+      <Pagination prevPage={prevPage} nextPage={nextPage} currentPage={currentPage} totalPages={totalPages} />
 
-      <div className="data-source">
-        Sumber data:{" "}
-        <a href="https://www.logammulia.com/" target="_blank" rel="noopener noreferrer">
-          www.logammulia.com
-        </a>
-      </div>
-
-      <div className="app-info">
-        <h3>Tentang Web</h3>
-        <p>
+      <div className="block w-full md:w-1/2 m-auto p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-auto">
+        <h5 className="mb-2 text-sm md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Tentang Web</h5>
+        <p className="font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm">
           Web ini menampilkan harga emas harian dari Logam Mulia ANTAM. Persentase perubahan dihitung berdasarkan perubahan harga
           dari hari sebelumnya.
+          <br /> <br /> Perhitungan Persentase: <br /> Persentase perubahan = ((Harga Hari Ini - Harga Kemarin) / Harga Kemarin) *
+          100% <br /> Contoh: Jika harga kemarin Rp 1.000.000 dan hari ini Rp 1.050.000, maka persentase perubahannya adalah
+          ((1.050.000 - 1.000.000) / 1.000.000) * 100% = 5%
         </p>
-        <h4>Perhitungan Persentase:</h4>
-        <p>Persentase perubahan = ((Harga Hari Ini - Harga Kemarin) / Harga Kemarin) * 100%</p>
-        <p>
-          Contoh: Jika harga kemarin Rp 1.000.000 dan hari ini Rp 1.050.000, maka persentase perubahannya adalah ((1.050.000 -
-          1.000.000) / 1.000.000) * 100% = 5%
-        </p>
-      </div>
-
-      <div className="github-link">
-        <Link href="https://github.com/ferryops/api-public" target="_blank" rel="noopener noreferrer">
-          <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/GitHub_Mark.png/923px-GitHub_Mark.png"
-            alt="GitHub Logo"
-            className="github-logo"
-            width={24}
-            height={24}
-          />
-          Lihat kode sumber di GitHub
+        <Link href="https://www.logammulia.com/" target="_blank" rel="noopener noreferrer">
+          www.logammulia.com
         </Link>
       </div>
     </div>
   );
 }
 
-export default GoldPriceTable;
+export default GoldPriceTableBuyBack;
