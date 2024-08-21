@@ -50,7 +50,10 @@ function GoldPriceTableBuyBack() {
     const percentage = ((currentPrice - previousPrice) / previousPrice) * 100;
     return percentage.toFixed(2) + "%";
   };
-
+  const calculateDifference = (currentPrice, previousPrice) => {
+    if (!previousPrice) return "Rp 0";
+    return "Rp " + (currentPrice - previousPrice);
+  };
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -100,18 +103,27 @@ function GoldPriceTableBuyBack() {
               Harga
             </th>
             <th scope="col" className="px-6 py-3">
-              Persentase
+              %
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Banding
             </th>
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((item, index) => (
-            <tr key={item[0]} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td className="px-6 py-4">{formatDate(item[0])}</td>
-              <td className="px-6 py-4">Rp {formatPrice(item[1])}</td>
-              <td className="px-6 py-4">{calculatePercentage(item[1], index > 0 ? paginatedData[index - 1][1] : null)}</td>
-            </tr>
-          ))}
+          {paginatedData.map((item, index) => {
+            const originalIndex = (currentPage - 1) * itemsPerPage + index;
+            const previousPrice = originalIndex < priceGold.length - 1 ? priceGold[originalIndex + 1][1] : null;
+
+            return (
+              <tr key={item[0]} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="px-6 py-4">{formatDate(item[0])}</td>
+                <td className="px-6 py-4">Rp {formatPrice(item[1])}</td>
+                <td className="px-6 py-4">{calculatePercentage(item[1], previousPrice)}</td>
+                <td className="px-6 py-4">{calculateDifference(item[1], previousPrice)}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 
