@@ -3,7 +3,7 @@
 Mini project, bikin API public dengan scraping (cheerio) dan framework Next.js
 
 ```
-  https://api-public-two.vercel.app/
+  https://logam-mulia.vercel.app/
 ```
 
 ### List Website
@@ -12,8 +12,8 @@ Mini project, bikin API public dengan scraping (cheerio) dan framework Next.js
 
 ### Menu
 
-- [Cek Harga Emas Antam](https://api-public-two.vercel.app/cek-harga-emas-antam)
-- [Cek Harga Buyback Emas Antam](https://api-public-two.vercel.app/cek-harga-buyback-emas-antam)
+- [Cek Harga Emas Antam](https://logam-mulia.vercel.app/cek-harga-emas-antam)
+- [Cek Harga Buyback Emas Antam](https://logam-mulia.vercel.app/cek-harga-buyback-emas-antam)
 
 ### Catatan Kaki
 
