@@ -20,7 +20,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch("https://www.logammulia.com/id/harga-emas-hari-ini");
+    const response = await fetch("https://www.logammulia.com/id/harga-emas-hari-ini", {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, seperti Gecko) Chrome/110.0.0.0 Safari/537.36",
+        Referer: "https://www.google.com/",
+        "Accept-Language": "en-US,en;q=0.9",
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+      },
+    });
     const html = await response.text();
 
     const cookies = response.headers.get("set-cookie");
@@ -32,20 +40,22 @@ export default async function handler(req, res) {
     }
 
     const $ = Cheerio.load(html);
-    const scriptContent = $('script:contains("_token")').html();
+    const scriptContent = $('meta[name="_token"]').attr("content");
+
+    console.log("scriptContent", scriptContent);
 
     if (!scriptContent) {
       throw new Error("Script content not found");
     }
 
-    const tokenMatch = scriptContent.match(/\/data-base-price\/gold\/sell\/\?_token=([^"]+)/);
-    const token = tokenMatch ? tokenMatch[1] : null;
+    // const tokenMatch = scriptContent.match(/\/data-base-price\/gold\/sell\/\?_token=([^"]+)/);
+    // const token = tokenMatch ? tokenMatch[1] : null;
 
-    if (!token) {
-      throw new Error("Token not found");
-    }
+    // if (!token) {
+    //   throw new Error("Token not found");
+    // }
 
-    const jsonUrl = `https://www.logammulia.com/data-base-price/gold/sell/?_token=${token}`;
+    const jsonUrl = `https://www.logammulia.com/data-base-price/gold/sell/?_token=${scriptContent}`;
     const jsonResponse = await fetch(jsonUrl, {
       headers: {
         Cookie: `XSRF-TOKEN=${xsrfToken}; logammulia_session=${logammuliaSession}`,
