@@ -46,7 +46,7 @@ export default async function handler(req, res) {
       throw new Error("Script content not found");
     }
 
-    const jsonUrl = `https://www.logammulia.com/data-base-price/gold/buy/?_token=${token}`;
+    const jsonUrl = `https://www.logammulia.com/data-base-price/gold/buy/?_token=${scriptContent}`;
     const jsonResponse = await fetch(jsonUrl, {
       headers: {
         Cookie: `XSRF-TOKEN=${xsrfToken}; logammulia_session=${logammuliaSession}`,
